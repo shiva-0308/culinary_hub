@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Hub FAQs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111; /* Dark background color */
+            color: #fff; /* White text color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333; /* Darker background for the page */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow */
+        }
+
+        .faq-question {
+            cursor: pointer;
+            background-color: #555; /* Darker background for questions */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background-color: #777; /* Lighter background for answers */
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <h1>Culinary Hub FAQs</h1>
+        {% for faq in faqs %}
+        <div class="faq-question" onclick="toggleAnswer('{{ faq.id }}')">
+            {{ faq.question }}
+        </div>
+        <div class="faq-answer" id="answer-{{ faq.id }}" style="display: none;">
+            {{ faq.answer }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+    function toggleAnswer(id) {
+        var answer = document.getElementById('answer-' + id);
+        if (answer.style.display === 'block') {
+            answer.style.display = 'none';
+        } else {
+            answer.style.display = 'block';
+        }
+    }
+    </script>
+</body>
+</html>

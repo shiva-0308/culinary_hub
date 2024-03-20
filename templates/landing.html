@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Culinary Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #111; /* Dark background color */
+            color: #fff; /* White text color */
+        }
+
+        .landing-page {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #333; /* Darker background for the page */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Increased shadow */
+            text-align: center;
+        }
+
+        .service-button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50; /* Green background color */
+            color: #fff; /* White text color */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            cursor: pointer; /* Change cursor to pointer for better user experience */
+        }
+
+        .service-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-page">
+        <h1>Welcome to Culinary Hub</h1>
+        <p>Choose your service:</p>
+        <button class="service-button" onclick="redirectAndSendData('book_chef')">Book a Chef</button>
+        <button class="service-button" onclick="redirectAndSendData('event_management')">Event Management</button>
+        <button class="service-button" onclick="redirectAndSendData('store')">Store</button>
+        <a href="https://www.youtube.com/channel/UCJxLcwW_4JANTu9ZXY3JTgw" class="service-button">Cooking Tutorials</a>
+        <button class="service-button" onclick="redirectAndSendData('workshops')">Workshops</button>
+        <button class="service-button" onclick="redirectAndSendData('faqs')">FAQs</button>
+        <button class="service-button" onclick="redirectAndSendData('book_functionhall')">Book Function Hall</button>
+        <button class="service-button" onclick="redirectAndSendData('staff')">Staff</button>
+        <button class="service-button" onclick="redirectAndSendData('groceries')">Groceries (Doorstep Delivery)</button>
+        <button class="service-button" onclick="redirectAndSendData('dabbawala')">Book Dabbawala Services</button>
+
+    <script>
+        function redirectAndSendData(buttonValue) {
+            // Redirect to the respective URL based on the button value
+            if (buttonValue === 'book_chef') {
+                window.location.href = "{{ url_for('book_chef') }}";
+            } else if (buttonValue === 'event_management') {
+                window.location.href = "{{ url_for('event_management') }}";
+            } else if (buttonValue === 'store') {
+                window.location.href = "{{ url_for('store') }}";
+            } else if (buttonValue === 'workshops') {
+                window.location.href = "{{ url_for('workshops') }}";
+            } else if (buttonValue === 'faqs') {
+                window.location.href = "{{ url_for('faqs') }}";
+            } else if (buttonValue === 'book_functionhall') {
+                window.location.href = "{{ url_for('book_functionhall') }}";
+            } else if (buttonValue === 'staff') {
+                window.location.href = "{{ url_for('staff') }}";
+            } else if (buttonValue === 'groceries') {
+                window.location.href = "{{ url_for('groceries') }}";
+            }
+              else if (buttonValue === 'dabbawala'){
+                window.location.href = "{{ url_for('dabbawala_services') }}";
+            }    
+            // After redirection, send data to server
+            fetch('/button_clicked', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ button_value: buttonValue }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // You can perform additional actions if needed
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle error if needed
+            });
+        }
+    </script>
+</body>
+</html>

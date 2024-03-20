@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Search Results</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        .emoji {
+            font-size: 60px;
+            display: block;
+            margin: 20px auto 0;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            perspective: 1000px;
+        }
+
+        .smile, .dull {
+            animation: rotate3d 3s infinite ease-in-out;
+        }
+
+        @keyframes rotate3d {
+            0% {
+                transform: rotate3d(0, 1, 0, 0deg);
+            }
+            50% {
+                transform: rotate3d(0, 1, 0, 180deg);
+            }
+            100% {
+                transform: rotate3d(0, 1, 0, 360deg);
+            }
+        }
+        
+    .contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+</style>
+<body>
+    <h1>Search Results</h1>
+    {% if venues %}
+        <div class="emoji smile">😊</div>
+        <p>Matching Venues:</p>
+        <ul>
+            {% for venue in venues %}
+                <li>
+                    <strong>{{ venue.function_hall_name }}</strong><br>
+                    Seating Capacity: {{ venue.seating_capacity }}<br>
+                    Type: {{ venue.type }}<br>
+                    Budget: {{ venue.budget }}<br>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="emoji dull">😔</div>
+        <p>No venues match your preferences.</p>
+    {% endif %}
+    
+    <p>User Preferences:</p>
+    <ul>
+        <li>Budget: {{ user_preferences.budget }}</li>
+        <li>Preferred Location: {{ user_preferences.location }}</li>
+        <li>Seating Capacity: {{ user_preferences.seating_capacity }}</li>
+        <li>Type: {{ user_preferences.type }}</li>
+    </ul>
+    <div class="contact-blink">
+        Need Help? <span>Contact Us</span>
+        <div class="contact-options icon-links">
+            <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+            <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+            
+        </div>
+    </div>
+
+    <script>
+    const contactLink = document.querySelector('.contact-blink span');
+        const contactOptions = document.querySelector('.contact-options');
+
+        contactLink.addEventListener('click', () => {
+            contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+        });
+  </script>
+</body>
+</html>

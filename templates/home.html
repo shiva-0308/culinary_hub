@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Hub</title>
+    <!-- Add Google Fonts link -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-image: url('https://th.bing.com/th/id/OIG4.aRhTo_QGN1XFsZOT_bP9?w=1024&h=1024&rs=1&pid=ImgDetMain');
+            background-size: auto;
+            background-repeat: repeat-x;
+            background-position: center;
+            background-color: #111; /* Dark black background color */
+            color: #fff; /* Light text color */
+            font-family: 'Poppins', sans-serif; /* Use Google Font */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #8B4513; /* Brown button color */
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #A0522D; /* Darker brown color on hover */
+        }
+        /* New CSS for additional features */
+        .left-text,
+        .right-text {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            padding: 20px;
+            background-color: rgba(240, 234, 214, 0.8); /* Light tan background color */
+            color: #000; /* Black text color */
+            font-size: 18px;
+            line-height: 1.5;
+            overflow-y: scroll;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+        .left-text {
+            left: 0;
+            transform: translateY(-100%);
+            animation-name: scrollLeft;
+        }
+        .right-text {
+            right: 0;
+            transform: translateY(100%);
+            animation-name: scrollRight;
+        }
+        @keyframes scrollLeft {
+            from {
+                transform: translateY(0%);
+            }
+            to {
+                transform: translateY(-100%);
+            }
+        }
+        @keyframes scrollRight {
+            from {
+                transform: translateY(0%);
+            }
+            to {
+                transform: translateY(100%);
+            }
+        }
+        .blinking-text {
+            display: inline-block;
+            background-color: #8B4513; /* Dark brown background color */
+            color: #fff; /* White text color */
+            padding: 5px 10px;
+            border-radius: 5px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            animation-duration: 1s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-name: blink;
+        }
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .bell-symbol {
+            font-size: 24px;
+            color: #fff;
+            margin-right: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-name: bellMove;
+        }
+        @keyframes bellMove {
+            0% {
+                left: 10%;
+            }
+            50% {
+                left: 90%;
+            }
+            100% {
+                left: 10%;
+            }
+        }
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation-duration: 10s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-name: scrollText;
+            position: relative;
+        }
+        @keyframes scrollText {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+.contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 36px;">Welcome to Culinary Hub</h1>
+        <p style="font-size: 18px;">Discover new recipes, connect with chefs, and explore the world of culinary delights!</p>
+        <a href="{{ url_for('join_us') }}" class="join-us-button">Join Us</a>
+        <a href="/signup" class="button" id="signup-button">Sign Up</a>
+        <a href="/login" class="button">Login</a>
+    </div>
+    <div class="contact-blink">
+        <span>Contact Us</span>
+        <div class="contact-options icon-links">
+            <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+            <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+            
+        </div>
+    </div>
+    <!-- Additional content for new features -->
+    <div class="left-text">
+        <p>Culinary_Hub</p>
+        <hr style="border-color: #fff; width: 80%;">
+        <p>Our services:</p>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li>Chef Booking</li>
+            <li>Household Helpers</li>
+            <li>Function Hall Booking</li>
+            <li>Grocery Delivery</li>
+            <li>Kitchen Equipment Store</li>
+            <li>Event Management</li>
+            <li>Cooking Classes</li>
+            <li>Dabawala</li>
+        </ul>
+    </div>
+    <div class="right-text">
+        <p>Culinary_Hub</p>
+        <hr style="border-color: #fff; width: 80%;">
+        <p>Our services:</p>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li>Chef Booking</li>
+            <li>Household Helpers</li>
+            <li>Function Hall Booking</li>
+            <li>Grocery Delivery</li>
+            <li>Kitchen Equipment Store</li>
+            <li>Event Management</li>
+            <li>Cooking Classes</li>
+            <li>Dabawala</li>
+        </ul>
+    </div>
+    <div class="blinking-text">
+        <span class="bell-symbol">&#128276;</span>
+        <span class="scrolling-text">Guaranteed Lowest Prices</span>
+    </div>
+    
+<script>
+        // Get the Sign Up button element
+        var signupButton = document.getElementById('signup-button');
+        
+        // Add click event listener to the Sign Up button
+        signupButton.addEventListener('click', function(event) {
+            // Prevent default action (following the href)
+            event.preventDefault();
+            
+            // Redirect to signup.html
+            window.location.href = '/signup';
+        });
+        
+        const contactLink = document.querySelector('.contact-blink span');
+            const contactOptions = document.querySelector('.contact-options');
+    
+            contactLink.addEventListener('click', () => {
+                contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+            });
+
+  </script>
+
+</body>
+</html>

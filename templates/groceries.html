@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grocery Booking Website</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('https://th.bing.com/th/id/OIG3.tq.C.TNwG5ibk8lAUrsq?pid=ImgGn');
+  background-size: auto;
+  background-repeat: repeat-x;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2); /* Adjust transparency as needed */
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.container input[type="text"],
+.container input[type="tel"],
+.container input[type="datetime-local"],
+.container textarea {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.container input[type="number"] {
+  width: 100px;
+}
+
+.input-fields {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  text-align: right;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-container button:hover {
+  background-color: #555;
+}
+
+.grocery-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000; /* Black color */
+}
+
+.contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+
+</style>
+</head>
+<body>
+  <div class="background-container">
+    <div class="glassmorphism">
+<form id="booking-form" class="container"> 
+  <h1 class="grocery-heading">Grocery Booking</h1>
+ <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" required>
+        <label for="whatsapp">WhatsApp Number:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" required>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" required></textarea>
+        <label for="delivery-date">Expected Delivery Date and Time:</label>
+        <input type="datetime-local" id="delivery-date" name="delivery-date" required>
+
+  <div>
+    <div class="input-fields">
+      <label for="itemName">Enter Item Name:</label>
+      <input type="text" id="itemName" list="itemSuggestions" placeholder="E.g., Apples">
+      <datalist id="itemSuggestions">
+      </datalist>
+      <label for="itemQuantity">Enter Item Quantity:</label>
+      <input type="number" id="itemQuantity" min="1" value="1">
+<label for="order-review">Order Review:</label>
+<textarea id="order-review" name="orderReview" contenteditable="true"></textarea>
+
+    </div>
+    <div class="button-container">
+        <button type="button" onclick="addItem()">Add Item</button> 
+
+      <button onclick="submitOrder()">Submit</button> 
+
+    </div>
+  </div>
+  </form>
+<div class="contact-blink">
+  Need Help? <span>Contact Us</span>
+  <div class="contact-options icon-links">
+      <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+      <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+      
+  </div>
+</div>
+
+<script>
+const itemSuggestions = ["Apples", "Bananas", "Oranges", "Milk", "Bread", "Eggs"]; 
+
+function populateSuggestions() {
+  const suggestionList = document.getElementById("itemSuggestions");
+  itemSuggestions.forEach(item => {
+    const suggestionOption = document.createElement("option");
+    suggestionOption.value = item;
+    suggestionList.appendChild(suggestionOption);
+  });
+}
+
+function addItem() {
+  const itemNameInput = document.getElementById("itemName");
+  const itemQuantityInput = document.getElementById("itemQuantity");
+  const itemName = itemNameInput.value.trim();
+  const itemQuantity = itemQuantityInput.value.trim();
+   // Update order review dynamically
+   const orderReview = document.getElementById("order-review");
+    const newItemText = `${itemName}  ${itemQuantity} units\n`; 
+    orderReview.value += newItemText; 
+
+
+
+    // Send request to add item to backend
+    fetch('/add_grocery_item', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `itemName=${itemName}`
+    });
+  }
+
+function submitOrder(event) {
+  event.preventDefault();
+
+  // Gather form data
+  const name = document.getElementById("name").value;
+  const mobile = document.getElementById("mobile").value;
+  const whatsapp = document.getElementById("whatsapp").value;
+  const address = document.getElementById("address").value;
+  const deliveryDateTime = document.getElementById("delivery-date").value;
+  const orderReview = document.getElementById("order-review").value; // Using .value
+
+  // Construct POST request body
+  const formData = new URLSearchParams();
+  formData.append('name', name);
+  formData.append('mobile', mobile);
+  formData.append('whatsapp', whatsapp);
+  formData.append('address', address);
+  formData.append('deliveryDateTime', deliveryDateTime);
+  formData.append('orderReview', orderReview);
+
+  // Submit the order
+  fetch('/submit_order', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.text();
+    } else {
+      throw new Error('Order submission failed - Server issue'); 
+    }
+  })
+  .then(message => {
+    alert(message); // Display the message returned by the backend
+  })
+  .catch(error => {
+    alert('Order submission failed: ' + error.message); 
+  }); 
+}
+
+function fetchGroceryItems() {
+  fetch('/get_grocery_items')
+    .then(response => response.json())
+    .then(items => {
+        const suggestionList = document.getElementById("itemSuggestions");
+        suggestionList.innerHTML = ''; // Clear existing options
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            suggestionList.appendChild(option);
+        });
+    });
+}
+
+// Call on page load to populate suggestions initially
+populateSuggestions(); 
+fetchGroceryItems();
+function submitOrder() {
+    // ... Gather form data
+
+    fetch('/submit_order', {
+
+        method: 'POST',
+        body: formData // Assuming you're using FormData
+    })
+    .then(response => {
+        if (response.ok) { // Check for 200 status
+            return response.text();
+        } else {
+            throw new Error('Order submission failed'); 
+        }
+    })
+    .then(message => alert(message))
+    .catch(error => alert(error.message)); 
+}
+
+const contactLink = document.querySelector('.contact-blink span');
+        const contactOptions = document.querySelector('.contact-options');
+
+        contactLink.addEventListener('click', () => {
+            contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+        });
+  </script>
+</script>
+</body>
+</html>

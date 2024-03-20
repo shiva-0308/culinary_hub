@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+  body {
+    background-image: url('https://th.bing.com/th/id/OIG4.EC07lBvO59GK9dDlTANB?pid=ImgGn');
+    background-size: cover;
+    background-repeat:no-repeat ;
+    background-position: center;
+    background-color: #111; /* Dark black background color */
+    color: #000; /* Black text color */
+    font-family: 'Poppins', sans-serif; /* Use Google Font */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.glass-container {
+    max-width: 600px;
+    margin: 20px auto; /* Center the container horizontally */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    border-radius: 300px; /* Rounded corners */
+    backdrop-filter: blur(0px); /* Apply blur effect */
+    border: 2px solid rgba(0, 0, 0, 0.2); /* Transparent border */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Box shadow for depth */
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px; /* Add padding for spacing */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+input[type="text"],
+select,
+input[type="number"],
+input[type="radio"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #000; /* Black border */
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    color: #000; /* Black text color */
+}
+
+::placeholder {
+    color: #000; /* Black color for placeholder text */
+    opacity: 0.5; /* Adjust opacity for placeholder text */
+}
+
+input[type="submit"] {
+    background-color: #fff; /* White background color */
+    color: #000; /* Black text color */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.flash-message {
+    position: fixed; /* Fixed position to stick on top */
+    top: 20px;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: #fff; /* White background color */
+    color: #000; /* Black text color */
+    border-radius: 5px;
+    z-index: 999; /* Ensure it appears above other content */
+}
+
+.contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+
+  </style>
+</head>
+<body>
+    <div class="glass-container">
+  <div class="container">
+    <h1>Welcome</h1>
+    <p>Please fill the following form:</p>
+    <form id="eventForm">
+      <input type="text" name="eventName" placeholder="Event Name" required><br>
+      <input type="text" name="date" placeholder="Date" required><br>
+      <input type="text" name="location" placeholder="Location" required><br>
+      <input type="text" name="duration" placeholder="Expected Duration" required><br>
+      <select name="eventType" id="eventType" required onchange="showOtherEventOption()">
+        <option value="">Select Event Type</option>
+        <option value="conference">Conference</option>
+        <option value="wedding">Wedding</option>
+        <option value="birthdayParty">Birthday Party</option>
+        <option value="other">Other</option>
+      </select><br>
+      <input type="text" name="otherEventType" id="otherEventType" placeholder="Please Specify"><br>
+      <input type="text" name="venuePreferences" placeholder="Venue Preferences" required><br>
+      <input type="text" name="entertainment_preferences" placeholder="Entertainment Preferences"><br>
+      <input type="text" name="activities_preferences" placeholder="Activities Preferences"><br>
+      <input type="text" name="theme" placeholder="Desired Theme or Color Scheme"><br>
+      <input type="text" name="decor_preferences" placeholder="Decor Preferences"><br>
+      <input type="text" name="lighting_requirements" placeholder="Lighting Requirements"><br>
+      <input type="text" name="stage_setup" placeholder="Stage Setup"><br>
+      <input type="text" name="deadlines" placeholder="Important Deadlines"><br>
+      <input type="text" name="schedule" placeholder="Event Schedule or Agenda"><br>
+      
+      <input type="text" name="additional_services" placeholder="Additional Services (e.g., Photography, Videography, Event Staffing)"><br>
+      <label>Transportation Needs:</label><br>
+      <input type="radio" name="transportation_needs" value="yes"> Yes<br>
+      <input type="radio" name="transportation_needs" value="no"> No<br>
+      <label>Accommodation Requirements:</label><br>
+      <input type="radio" name="accommodation_requirements" value="yes"> Yes<br>
+      <input type="radio" name="accommodation_requirements" value="no"> No<br>
+      <input type="submit" value="Submit">
+    </form>
+    <div id="flashMessage" class="flash-message"></div>
+  </div>
+  <div class="contact-blink">
+    Need Help? <span>Contact Us</span>
+    <div class="contact-options icon-links">
+        <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+        <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+        
+    </div>
+</div>
+
+
+  <script>
+    function showOtherEventOption() {
+      var eventType = document.getElementById("eventType");
+      var otherEventType = document.getElementById("otherEventType");
+      otherEventType.style.display = (eventType.value === "other") ? "block" : "none";
+      otherEventType.required = (eventType.value === "other");
+    }
+
+    // Move focus to next field when pressing "Enter"
+    var inputs = document.querySelectorAll("input, select");
+    inputs.forEach(function(input) {
+      input.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          var index = Array.prototype.indexOf.call(inputs, input);
+          if (index > -1 && index < inputs.length - 1) {
+            event.preventDefault(); // Prevent form submission on Enter
+            inputs[index + 1].focus();
+          }
+        }
+      });
+    });
+
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var formData = new FormData(this);
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            document.getElementById('flashMessage').innerText = "Thank you for choosing us! Our team will get in touch with you as soon as possible 😊";
+            document.getElementById('flashMessage').style.display = 'block';
+          } else {
+            alert('Error: ' + xhr.statusText);
+          }
+        }
+      };
+      xhr.open('POST', '/eventmanagement', true);
+      xhr.send(formData);
+    });
+    
+    const contactLink = document.querySelector('.contact-blink span');
+        const contactOptions = document.querySelector('.contact-options');
+
+        contactLink.addEventListener('click', () => {
+            contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+        });
+  </script>
+  </script>
+</body>
+</html>

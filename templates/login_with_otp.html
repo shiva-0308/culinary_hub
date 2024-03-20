@@ -1,0 +1,86 @@
+<!-- Step 1: Submit email -->
+<div class="container" id="step1">
+    <h2>Login with OTP</h2>
+    <form id="emailForm">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <button type="button" onclick="submitEmail()">Submit Email</button>
+    </form>
+  </div>
+  
+  <!-- Step 2: Enter OTP -->
+  <div class="container" id="step2" style="display: none;">
+    <h2>Enter OTP</h2>
+    <form id="otpForm">
+        <div class="form-group">
+            <label for="otp">OTP:</label>
+            <input type="number" id="otp" name="otp" placeholder="Enter OTP" required>
+        </div>
+        <button type="button" onclick="submitOTP()">Submit OTP</button>
+    </form>
+  </div>
+  
+  <script>
+    function submitEmail() {
+        const email = document.getElementById('email').value;
+  
+        const url = 'http://localhost:5000/send_otp_email';
+  
+        const data = new URLSearchParams();
+        data.append('email', email);
+  
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: data,
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Move to step 2 (enter OTP)
+                    document.getElementById('step1').style.display = 'none';
+                    document.getElementById('step2').style.display = 'block';
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+  
+    function submitOTP() {
+        const email = document.getElementById('email').value;
+        const otp = document.getElementById('otp').value;
+  
+        const url = 'http://localhost:5000/verify_otp';
+  
+        const data = new URLSearchParams();
+        data.append('email', email);
+        data.append('otp', otp);
+  
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: data,
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Successful verification, redirect to landing.html
+                    window.location.href = '/landing';
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+  </script>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culinary Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative; /* Add position relative to the body */
+        }
+
+        #message {
+            position: absolute; /* Set the position to absolute */
+            top: calc(50% - 250px); /* Adjusted to be three lines above the center */
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        #buttons {
+            margin-top: 50px; /* Add margin to push buttons down */
+        }
+
+        button {
+            background-color: orange;
+            color: white;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+    .contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+    </style>
+</head>
+<body>
+    <div id="message"></div>
+    <div id="buttons">
+
+    <button id="button1" value="Chef per visit (One time cooking)">Chef per visit (One time cooking)</button>
+    <button id="button2" value="Chef for a day">Chef for a day</button>
+    <button id="button3" value="Chef for event">Chef for event</button>
+    <button id="button4" value="Chef on monthly basis">Chef on monthly basis</button>
+    <button id="button5" value="Chef for tours and travels">Chef for tours and travels</button>
+   </div>
+   <div class="contact-blink">
+   Looking for more services? <span>Contact Us</span>
+    <div class="contact-options icon-links">
+        <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+        <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+        
+    </div>
+</div>
+
+    <script>
+        function displayMessage(message) {
+            var messageDiv = document.getElementById("message");
+            messageDiv.textContent = message;
+            messageDiv.style.display = "block";
+        }
+
+        function sendData(value) {
+            var messageDiv = document.getElementById("message");
+            messageDiv.textContent = "Processing your request. Please wait. 😊";
+            messageDiv.style.display = "block";
+
+            fetch('/store_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ value: value }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .then(data => {
+                console.log('Success:', data);
+                // Handle success response if needed
+                displayMessage("Our chefs will get in touch with you as soon as possible. Thank you for choosing us! 😊");
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Handle error if needed
+            });
+        }
+
+        document.getElementById("button1").addEventListener("click", function() {
+            sendData("Chef per visit (One time cooking)");
+        });
+
+        document.getElementById("button2").addEventListener("click", function() {
+            sendData("Chef for a day");
+        });
+
+        document.getElementById("button3").addEventListener("click", function() {
+            sendData("Chef for event");
+        });
+
+        document.getElementById("button4").addEventListener("click", function() {
+            sendData("Chef on monthly basis");
+        });
+
+        document.getElementById("button5").addEventListener("click", function() {
+            sendData("Chef for tours and travels");
+        });
+
+        
+        const contactLink = document.querySelector('.contact-blink span');
+        const contactOptions = document.querySelector('.contact-options');
+
+        contactLink.addEventListener('click', () => {
+            contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+        });
+  </script>
+    </script>
+</body>
+</html>

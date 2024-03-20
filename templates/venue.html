@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+body {
+    background-image: url('https://th.bing.com/th/id/OIG4.nvLrNxil.wIeNuEqHziF?pid=ImgGn');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Center align content horizontally */
+    height: 100vh;
+    margin: 0;
+    display: grid; /* Use grid layout */
+    place-items: center; /* Center content vertically and horizontally */
+}
+
+h1 {
+    margin-bottom: 50px; /* Reduce margin to create a smaller gap */
+}
+
+form {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Transparent border */
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75); /* Box shadow for depth */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    padding: 20px;
+    width: 300px;
+}
+
+input[type="number"],
+input[type="text"],
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+    color: #fff;
+}
+
+button[type="submit"] {
+    background-color: rgb(45, 126, 231);
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: darkblue;
+}
+
+.contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+    </style>
+</head>
+<body>
+    <h1>Please  enter following details to find function hall that matches your requirements</h1>
+    <form action="/search_venues" method="POST">
+        <label for="budget">prefered rental amount</label>
+        <input type="number" name="budget" required><br>
+
+        <label for="location">Preferred Location:</label>
+        <input type="text" name="location" required><br>
+
+        <label for="seating_capacity">Seating Capacity:</label>
+        <input type="number" name="seating_capacity" required><br>
+
+        <label for="type">Type (AC/Non-AC):</label>
+        <input type="text" name="type" required><br>
+
+        <button type="submit">Search</button>
+    </form>
+    <div class="contact-blink">
+        Need Help? <span>Contact Us</span>
+        <div class="contact-options icon-links">
+            <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+            <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+            
+        </div>
+    </div>
+    <script>
+        const contactLink = document.querySelector('.contact-blink span');
+            const contactOptions = document.querySelector('.contact-options');
+    
+            contactLink.addEventListener('click', () => {
+                contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+            });
+      </script>
+</body>
+</html>

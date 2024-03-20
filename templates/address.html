@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address</title>
+</head>
+<body>
+    <h1>Address</h1>
+    <p>Address: {{ address }}</p>
+    <p>Road Number: {{ road_number }}</p>
+    <p>Is this address correct?</p>
+    <form action="/">
+        <button type="submit">Yes</button>
+    </form>
+    <form action="/reverse_geocode" method="post">
+        <button type="submit">No, Edit Address</button>
+        <input type="hidden" name="latitude" value="{{ latitude }}">
+        <input type="hidden" name="longitude" value="{{ longitude }}">
+    </form>
+</body>
+</html>

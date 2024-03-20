@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dabbawala Service Booking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+   body {
+  background-image: url('https://th.bing.com/th/id/OIG1.wEuisZlGefbzwieQnVEp?pid=ImgGn');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #000000; /* Dark black color */
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.glass-morphism {
+  background: rgba(0, 0, 0, 0.1); /* Semi-transparent black */
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.18); /* Semi-transparent black border */
+  padding: 20px;
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+h1 {
+  text-align: center;
+  color: #000000; /* Dark black color */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000000; /* Dark black color */
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  background: rgba(0, 0, 0, 0.1); /* Semi-transparent black */
+  color: #000000; /* Dark black color */
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#confirmation {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 18px;
+  color: #000000; /* Dark black color */
+}
+
+.contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+
+ </style>
+</head>
+<body>
+  <div class="glass-morphism">
+  <div class="container">
+    <h1>Book Dabbawala Services</h1>
+    <form id="bookingForm">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Address:</label>
+        <textarea id="address" name="address" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact Number:</label>
+        <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required>
+      </div>
+      <div class="form-group">
+        <label for="whatsapp">WhatsApp Number:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" pattern="[0-9]{10}" required>
+      </div>
+      <div class="form-group">
+        <label for="deliveryType">Delivery Type:</label>
+        <input type="text" id="deliveryType" name="deliveryType" placeholder="Example: Breakfast, Lunch, Dinner" required>
+      </div>
+      <div class="form-group">
+        <label for="schedule">Schedule (From - To Dates):</label>
+        <input type="text" id="schedule" name="schedule" placeholder="Example: 2024-03-20 to 2024-03-25" required>
+      </div>
+      <div class="form-group">
+        <label for="instructions">Instructions:</label>
+        <textarea id="instructions" name="instructions" rows="4" placeholder="Example: Delivery time, specific preferences"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="cookedType">Cooked Type:</label>
+        <input type="text" id="cookedType" name="cookedType" placeholder="Example: Home Cooked, Dabbawala Cooked, Restaurant" required>
+      </div>
+      <button type="submit">Book Now</button>
+    </form>
+    <div id="confirmation"></div>
+  </div>
+  
+  <div class="contact-blink">
+    Need Help? <span>Contact Us</span>
+    <div class="contact-options icon-links">
+        <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+        <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+        
+    </div>
+</div>
+
+  <script>
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      var confirmationMessage = "Thank you, " + formData.get("name") + "! Your booking has been confirmed.";
+      document.getElementById("confirmation").innerText = confirmationMessage;
+      // Here you can send the form data to the backend for storage
+      // Example: You can use fetch API or XMLHttpRequest to send the data
+      // For simplicity, I'm just displaying the confirmation message here
+      console.log("Form data:", formData);
+    });
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                document.getElementById('confirmation').innerText = "Thank you for choosing our Dabbawala services! Your booking has been confirmed. 😊";
+            } else {
+                alert('Error: ' + xhr.statusText);
+            }
+        }
+    };
+    xhr.open('POST', '/book', true);  // Send the form data to the correct endpoint (/book)
+    xhr.send(formData);
+});
+
+const contactLink = document.querySelector('.contact-blink span');
+        const contactOptions = document.querySelector('.contact-options');
+
+        contactLink.addEventListener('click', () => {
+            contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+        });
+  </script>
+
+
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooking Class Registration Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-image: url('https://th.bing.com/th/id/OIG3.j3hgJSHOn3SlwoAeE3b.?pid=ImgGn');
+            background-size: auto;
+            background-repeat: repeat-x;
+            background-position: center;
+            background-color: #111; /* Dark black background color */
+            color: #000; /* Black text color */
+            font-family: 'Poppins', sans-serif; /* Use Google Font */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.3); /* Transparent white */
+            backdrop-filter: blur(0px); /* Glassmorphism blur effect */
+            border-radius: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Transparent white border */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: calc(100% - 22px); /* Adjusted width to account for padding and border */
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #000; /* Black border */
+            background: rgba(255, 255, 255, 0.1); /* Transparent white background */
+            border-radius: 5px;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px); /* Glassmorphism blur effect */
+            color: #000; /* Black text color */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            border-bottom: 2px solid rgba(0, 123, 255, 0.5); /* Transparent border bottom */
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="submit"]:focus {
+            outline: none;
+        }
+        
+    .contact-blink {
+      text-align: right; /* Align to the right */
+      position: absolute; /* Position absolutely */
+      top: 20px; /* Adjust as needed */
+      right: 20px; /* Adjust as needed */
+    }
+
+    .contact-blink span {
+      text-decoration: underline;
+      cursor: pointer;
+      color: #11cd62; /* Change color to green */
+    }
+
+    .contact-blink span:hover {
+      text-decoration: none;
+    }
+
+    .contact-options {
+      display: none;
+      margin-top: 10px;
+      color: #ffffff; /* Change color to white */
+    }
+
+    .contact-options i {
+      margin-right: 5px;
+    }
+
+    /* Change colors for phone, WhatsApp, and email links */
+    .icon-links a i {
+      color: #0eda29; /* Example icon color */
+    }
+
+    .icon-links a {
+      text-decoration: none;
+      color: #ffffff; /* Change text color to white */
+      margin: 0 10px; /* Space between links */
+    }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Cooking Class Registration Form</h2>
+    <form id="registrationForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" required>
+
+        <label for="whatsapp">WhatsApp:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" pattern="[0-9]{10}" placeholder="Enter 10-digit WhatsApp number" required>
+
+        <label for="cuisine">Mention Cuisine You Want to Learn:</label>
+        <input type="text" id="cuisine" name="cuisine" required autocomplete="on" list="cuisineList">
+        <datalist id="cuisineList">
+            <option value="Italian Cuisine">
+            <option value="Asian Fusion">
+            <option value="French Pastry">
+            <option value="Mediterranean Delights">
+        </datalist>
+
+        <input type="submit" value="Register">
+    </form>
+    <p id="thankYouMessage" style="display: none;">Thanks for registering! Our team will reach you as soon as possible.</p>
+</div>
+<div class="contact-blink">
+    Need Help? <span>Contact Us</span>
+    <div class="contact-options icon-links">
+        <a href="tel:+917893709391"><i class="fas fa-phone"></i> Call</a> 
+        <a href="whatsapp://send?phone=+917893709391&text=Hello" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:support@culinaryhub.com"><i class="fas fa-envelope"></i> Email</a>
+        
+    </div>
+</div>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Collect form data
+        var formData = new FormData(this);
+        
+        // Send form data to backend using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/register', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                // Display success message
+                document.getElementById('thankYouMessage').innerText = response.message;
+                document.getElementById('thankYouMessage').style.display = 'block';
+                // Clear form fields if needed
+                document.getElementById('registrationForm').reset();
+            } else {
+                // Handle other status codes (e.g., errors)
+                console.error('Error:', xhr.statusText);
+            }
+        };
+        xhr.onerror = function() {
+            console.error('Request failed');
+        };
+        xhr.send(formData);
+    });
+    
+    const contactLink = document.querySelector('.contact-blink span');
+        const contactOptions = document.querySelector('.contact-options');
+
+        contactLink.addEventListener('click', () => {
+            contactOptions.style.display = contactOptions.style.display === 'block' ? 'none' : 'block';
+        });
+  </script>
+</script>
+
+</body>
+</html>

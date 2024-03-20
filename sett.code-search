@@ -1,0 +1,12 @@
+# Query: sett
+# ContextLines: 1
+
+1 result - 1 file
+
+.vscode\settings.json:
+  1  {
+  2:     "workbench.settings.useSplitJSON": false,
+  3      "terminal.integrated.commandsToSkipShell": [
+"python.analysis.extraPaths": [
+    "C:\\Program Files\\Python311\\Lib"
+]
