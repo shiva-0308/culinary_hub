@@ -1,3 +1,4 @@
-gunicorn
-flask
-scikit-learn
+Flask==2.1.4
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.26
+bcrypt==3.2.0
